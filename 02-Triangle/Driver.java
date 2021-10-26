@@ -1,4 +1,4 @@
-class NewDriver {
+class Driver {
   public static void main(String[] args) {
     First a = new First();
     System.out.println(a.x);
