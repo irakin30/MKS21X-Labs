@@ -20,4 +20,7 @@ public class Point{
   public int distanceTo(Point b) {
     return Math.abs(Math.sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
   }
+  public static boolean closeEnough(double a, double b) {
+    return Math.abs(b/a) < .00001;
+  }
 }
