@@ -36,7 +36,14 @@ public class Triangle {
     }
 
     public String toString() {
-        return "{" + v1.toString() + ", " + v2.toString() + ", " = v3.toString() + "}";
+        return "{" + v1.toString() + ", " + v2.toString() + ", " + v3.toString() + "}";
+    }
+
+    public static boolean closeEnough(double a, double b) {
+      if (a == 0.0 || b == 0.0) {
+          return a == b;
+      }
+      return Math.abs(1 - Math.abs(b/a)) <= .00001;
     }
 
     //for my own convenience
@@ -54,15 +61,22 @@ public class Triangle {
     }
 
     public double getPerimeter() {
-        return sideLength() + sideLength(1) + sideLength(2);
+        return sideLength(3) + sideLength(1) + sideLength(2);
     }
 
     public boolean equals(Triangle z) {
-        return true;
+        if (z == null) {
+          return false;
+        }
+        return v1.equals(z.v1) && v2.equals(z.v2) && v3.equals(z.v3);
+    }
+
+    public String classify() {
+      return "";
     }
 
     public double area() {
         double s = getPerimeter() / 2;
-        return Math.sqrt( s * (s - sideLength()) * (s - sideLength(1)) * (s - sideLength(2)));
+        return Math.sqrt( s * (s - sideLength(3)) * (s - sideLength(1)) * (s - sideLength(2)));
     }
 }
