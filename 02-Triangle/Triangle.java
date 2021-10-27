@@ -72,7 +72,12 @@ public class Triangle {
     }
 
     public String classify() {
-      return "";
+        if (closeEnough(sideLength(1),sideLength(2)) && closeEnough(sideLength(2),sideLength(3))) {
+          return "equilateral";
+        } else if (closeEnough(sideLength(1),sideLength(2)) || closeEnough(sideLength(2),sideLength(3)) || closeEnough(sideLength(1), sideLength(3))) {
+          return "isosceles";
+        }
+        return "scalene";
     }
 
     public double area() {
