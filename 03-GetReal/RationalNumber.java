@@ -70,7 +70,7 @@ public class RationalNumber extends RealNumber
     if (a == 0) {
         return b;
     }
-    return (b % a, a);
+    return gcd(b % a, a);
   }
 
   /**
