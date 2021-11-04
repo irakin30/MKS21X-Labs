@@ -49,10 +49,18 @@ public class RealNumber{
 
   public int compareTo(RealNumber other) {
     final value = getValue() - other.getValue();
-    if ()
+    if (value < 0) {
+      return -1;
+    }
+    else if (value > 0) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
   }
 
   public int equals(RealNumber other) {
-
+      return getValue() == other.getValue(); 
   }
 }
