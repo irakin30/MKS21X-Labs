@@ -27,6 +27,8 @@ public class TestCases {
     display(alist);
     System.out.println(alist.set(4, "Luigi") + " to " + "Luigi");
     display(alist);
+
+
     }
 
     public static void display(SuperArray alist) {
