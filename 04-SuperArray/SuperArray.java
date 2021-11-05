@@ -11,9 +11,10 @@ public class SuperArray {
         return size;
     }
 
-    public void add(String a) {
+    public boolean add(String a) {
         data[size] = a;
         size++;
+        return true;
     }
 
     public void remove(int index) {
@@ -45,4 +46,22 @@ public class SuperArray {
         }
         return str + "]";
     }
+
+    public String get(int index) {
+        return data[index];
+    }
+
+    public String set(int index, String element) {
+      if (index >= 0) {
+        String temp = data[index];
+        data[index] = element;
+        return temp;
+      }
+      else {
+        System.out.println("Error: index out of bounds");
+        return null;
+      }
+    }
+
+
 }
