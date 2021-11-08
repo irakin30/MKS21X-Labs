@@ -24,11 +24,11 @@ public class SuperArray {
         return size;
     }
 
-    public add(int index, String newstr) {
+    public void add(int index, String newstr) {
         for(int i = size(); i > index; i--) {
-            
+            data[i] = data[i-1];
         }
-
+        data[index] = newstr;
     }
 
     public boolean add(String a) {
