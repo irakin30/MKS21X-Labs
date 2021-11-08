@@ -24,6 +24,13 @@ public class SuperArray {
         return size;
     }
 
+    public add(int index, String newstr) {
+        for(int i = size(); i > index; i--) {
+            
+        }
+
+    }
+
     public boolean add(String a) {
         data[size] = a;
         size++;
@@ -112,7 +119,6 @@ public class SuperArray {
         }
         return -1;
     }
-
 
 
 }
