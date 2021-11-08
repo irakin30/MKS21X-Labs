@@ -12,6 +12,13 @@ public class SuperArray {
       size = 0;
     }
 
+    private void resize() {
+        String[] newarr = new String[2 * size() + 1];
+        for (int i = 0; i < size(); i++) {
+            newarr[i] = data[i];
+        }
+        data = newarr;
+    }
 
     public int size() {
         return size;
@@ -23,11 +30,30 @@ public class SuperArray {
         return true;
     }
 
-    public void remove(int index) {
+    public String remove(int index) {
+      if (index > 0 && index <= size()){
+         String removed = data[index];
         data[index] = null;
         for (int i = index; i < size; i++) {
           data[i] = data[i + 1];
-          //reminder to add the edge case
+        }
+        data[size] = null;
+        return removed;
+      }
+      else {
+          System.out.println("Error: index out of range");
+          return null;
+      }
+    }
+
+    public boolean remove(String target) {
+        final int index = indexOf(target);
+        if (index != -1) {
+            remove(index);
+            return true;
+        }
+        else {
+          return false;
         }
     }
 
@@ -68,6 +94,25 @@ public class SuperArray {
         return null;
       }
     }
+
+    public int indexOf(String str) {
+        for (int i = 0; i < size(); i++) {
+          if (str.equals(data[i])) {
+            return i;
+          }
+        }
+        return -1;
+    }
+
+    public int LastIndexOf(String str) {
+        for (int i = size(); i > 0; i--) {
+          if (str.equals(data[i])) {
+            return i;
+          }
+        }
+        return -1;
+    }
+
 
 
 }
