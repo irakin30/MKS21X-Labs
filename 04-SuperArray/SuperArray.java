@@ -25,13 +25,20 @@ public class SuperArray {
     }
 
     public void add(int index, String newstr) {
+      if (data.length < size() + 1) {
+          resize();
+      }
         for(int i = size(); i > index; i--) {
             data[i] = data[i-1];
         }
         data[index] = newstr;
+        size++;
     }
 
     public boolean add(String a) {
+      if (data.length < size() + 1) {
+          resize();
+      }
         data[size] = a;
         size++;
         return true;
@@ -54,14 +61,7 @@ public class SuperArray {
     }
 
     public boolean remove(String target) {
-        final int index = indexOf(target);
-        if (index != -1) {
-            remove(index);
-            return true;
-        }
-        else {
-          return false;
-        }
+        return remove(indexOf(target)) != null; 
     }
 
     public String toString() {
