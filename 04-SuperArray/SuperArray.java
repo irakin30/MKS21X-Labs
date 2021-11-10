@@ -7,7 +7,10 @@ public class SuperArray {
       size = 0;
     }
 
-    public SuperArray(int initialCapacity) {
+    public SuperArray(int initialCapacity) throws Exception {
+      if (initialCapacity < 0) {
+          throw new IllegalArgumentException("Error: Size must be a non-negative integer value")
+      }
       data = new String[initialCapacity];
       size = 0;
     }
@@ -24,20 +27,26 @@ public class SuperArray {
         return size;
     }
 
+    public boolean add(String a) {
+      if (size() + 1 >= data.length) {
+          resize();
+      }
+        data[size] = a;
+        size++;
+        return true;
+    }
+
     public void add(int index, String newstr) {
+        if (size() + 1 >= data.length) {
+            resize();
+        }
         for(int i = size(); i > index; i--) {
             data[i] = data[i-1];
         }
         data[index] = newstr;
     }
 
-    public boolean add(String a) {
-        data[size] = a;
-        size++;
-        return true;
-    }
-
-    public String remove(int index) {
+    public String remove(int index) throws IllegalArgumentException{
       if (index > 0 && index <= size()){
          String removed = data[index];
         data[index] = null;
@@ -48,8 +57,7 @@ public class SuperArray {
         return removed;
       }
       else {
-          System.out.println("Error: index out of range");
-          return null;
+          throw new IllegalArgumentException("Error: Index must be a non-negative integer value");
       }
     }
 
@@ -90,15 +98,14 @@ public class SuperArray {
         return data[index];
     }
 
-    public String set(int index, String element) {
+    public String set(int index, String element) throws IllegalArgumentException {
       if (index >= 0) {
         String temp = data[index];
         data[index] = element;
         return temp;
       }
       else {
-        System.out.println("Error: index out of bounds");
-        return null;
+        throw new IllegalArgumentException("Error: Index must be a non-negative integer value");
       }
     }
 
