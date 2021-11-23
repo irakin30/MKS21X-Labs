@@ -43,27 +43,20 @@ public class Triangles {
 
     public static void byColumn(Scanner input) {
         int count = 0;
-        int i = 0;
-        int[] a = new int[3];
-        int[] b = new int[3];
-        int[] c = new int[3];
-        while(input.hasNextInt) {
-             if (int i > 2) {
-               i = 0;
-               if (isTriangle[a]) {
-                 count++;
-               }
-               if (isTriangle[b]) {
-                 count++;
-               }
-               if (isTriangle[c]) {
-                 count++;
-               }
-             }
-             a[i] = input.nextInt();
-             b[i] = input.nextInt();
-             c[i] = input.nextInt();
+        int[][] nums = new int[3][3]; 
+        while (input.hasNextInt()) { 
+            for(int i = 0; i < 3; i++) {
+              nums[0][i] = input.nextInt();
+              nums[1][i] = input.nextInt();
+              nums[2][i] = input.nextInt();
+            } 
+            for(int i = 0; i < 3; i++) { 
+              if(isTriangle(nums[i])) { 
+                count++;
+              }
+            }
         }
         System.out.println(count);
-    }
+    } 
+    
 }
