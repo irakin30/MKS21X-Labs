@@ -7,11 +7,22 @@ public class Wrapping {
         try {
             File data = new File(args[0]);  
             Scanner input = new Scanner(data);
-            int total = 0;   
-            while (input.hasNextLine()) {
-                String line = input.nextLine(); 
-                total += surfaceArea(getDimensions(line)); 
+            int total = 0; 
+            if (args[1].equals("1")) {
+                while (input.hasNextLine()) {
+                    String line = input.nextLine();
+                    int[] dimensions = getDimensions(line);
+                    total += surfaceArea(dimensions[0], dimensions[1], dimensions[2]);
+                }
             } 
+            else {
+
+                while(input.hasNextLine()) {
+                String line = input.nextLine();
+                int[] dimensions = getDimensions(line);
+                total += ribbonNeeded(dimensions[0], dimensions[1], dimensions[2]);
+                }
+            }
             input.close();    
             System.out.println(total); 
         } catch (FileNotFoundException e) {
@@ -19,18 +30,30 @@ public class Wrapping {
         }
     } 
 
-    public static int surfaceArea(int[] dimensions) { 
-        int x = dimensions[0];
-        int y = dimensions[1]; 
-        int z = dimensions[2]; 
-        int min = x * y; 
-        if (min > (y * z)) { 
-            min = y * z;
+    public static int getPerimeter(int a, int b) {
+        return 2 * (a + b);
+    } 
+
+    public static int ribbonNeeded(int x, int y, int z) { 
+        int min = getPerimeter(x, y); 
+        if (min > getPerimeter(y, z)) {
+            min = getPerimeter(y, z);
         } 
-        if (min > x * z) {
-            min = x * z; 
+        if (min > getPerimeter(x, z)) { 
+            min = getPerimeter(x, z);
         }
-        return (2 * ((x * y) + (y * z) + (x * z))) + min; 
+        return (x * y * z) + min ;
+    } 
+
+    public static int surfaceArea(int x, int y, int z) { 
+        int slack = x * y; 
+        if (slack > (y * z)) { 
+            slack = y * z;
+        } 
+        if (slack > x * z) {
+            slack = x * z; 
+        }
+        return (2 * ((x * y) + (y * z) + (x * z))) + slack; 
     } 
     
     public static int[] getDimensions(String line) { 
@@ -40,6 +63,5 @@ public class Wrapping {
         dimensions[2] = Integer.parseInt(line.substring(line.lastIndexOf("x") + 1));
         return dimensions;
     }  
-
 
 }
