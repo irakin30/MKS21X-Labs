@@ -6,15 +6,21 @@ public class Non{
         try {
           File data = new File(args[0]);
           Scanner input = new Scanner(data);
+
+          // Part 1 Code
           if (args[1].equals("1")) {
               int count = 0;
               while(input.hasNextLine()) {
                   String line = input.nextLine();
-                  if (isNice(line)) {
+                  if (nVowels(line) && notContain(line) && twice(line)) {
                     count++;
                   }
               }
               System.out.println(count);
+            }
+          // Part 2 Code
+          else {
+
             }
         }
         catch (FileNotFoundException e) {
@@ -25,7 +31,7 @@ public class Non{
   public static boolean nVowels(String str) {
       int count = 0;
       for(int i = 0; i < str.length(); i++) {
-          if ("aeiou".contains("" + str.charAt(i))) {
+          if ("aeiou".contains(str.substring(i, i+1))) {
               count++;
           }
       }
@@ -51,8 +57,5 @@ public class Non{
       return false;
   }
 
-  public static boolean isNice(String a) {
-    return nVowels(a) && notContain(a) && twice(a);
-  }
 
 }
