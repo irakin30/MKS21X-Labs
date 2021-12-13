@@ -41,13 +41,14 @@ public class Sorts{
 
       public static void insertionSort(int[] ary){
           for(int i = 1; i < ary.length; i++) {
-              int temp = ary[i]
+              int temp = ary[i]; 
               int j = i;
               while(j >= 0 && temp < ary[j]) {
-                  ary[j + 1] = arr[j];
+                  ary[j + 1] = ary[j];
                   j--; 
               } 
-              arr[j+1] = temp; 
+              ary[j+1] = temp; 
           }
-      }
+      }  
+
 }

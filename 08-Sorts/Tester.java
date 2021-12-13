@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Tester {
 
     public static boolean sorted(int[] original, int[] newdata) {
@@ -6,7 +7,7 @@ public class Tester {
     }
 
     public static int[] randomArr() {
-        int[] random = (int)(Math.random() *  100);
+        int[] random = new int[(int)(Math.random() *  100)];
         for (int i = 0; i < random.length; i++) {
             random[i] = (int)(Math.random() * 1000 - 500);
         }
