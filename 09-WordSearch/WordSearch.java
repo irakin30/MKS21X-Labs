@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class WordSearch {
+public class WordSearch { 
   private char[][] data;
   private int seed;
   private Random randgen;
