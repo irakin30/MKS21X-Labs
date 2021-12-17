@@ -102,8 +102,8 @@ public class WordSearch {
             for(int j = 0; j < 20 && !placed; j++){
               int row = randgen.nextInt(data.length);
               int col = randgen.nextInt(data[row].length); 
-              int rowInc = randgen.nextInt()%2; 
-              int colInc = randgen.nextInt()%2; 
+              int rowInc = randgen.nextInt() % 2; 
+              int colInc = randgen.nextInt() % 2; 
               tries++; 
               placed = addWord(current, row, col, rowInc, colInc); 
             } 
