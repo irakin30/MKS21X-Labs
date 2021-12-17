@@ -7,25 +7,11 @@ public class WordSearch {
   private Random randgen;
   private ArrayList<String> wordsAdded;
 
-  /**
-   * Initialize the grid to the size specified
-   * and fill all of the positions with '_'
-   *
-   * @param rows is the starting height of the WordSearch
-   * @param cols is the starting width of the WordSearch
-   */
   public WordSearch(int rows, int cols) {
     data = new char[rows][cols];
-    Random rng = new Random();
-    seed = rng.nextInt();
-    randgen = new Random(seed);
+    randgen = new Random();
     wordsAdded = new ArrayList<String>();
     clear();
-  }
-
-  public WordSearch(int rows, int cols, String fileName) {
-    this(rows, cols);
-    addAllWords(fileName);
   }
 
   public WordSearch(int rows, int cols, String fileName, int randSeed) {
@@ -35,7 +21,10 @@ public class WordSearch {
     addAllWords(fileName);
   }
 
-  /** Set all values in the WordSearch to underscores'_' */
+  public WordSearch(int rows, int cols, String fileName) {
+    this(rows, cols, fileName, (int)(Math.random() * 100000));
+  }
+
   private void clear() {
     for (int row = 0; row < data.length; row++) {
       for (int col = 0; col < data[row].length; col++) {
@@ -44,12 +33,6 @@ public class WordSearch {
     }
   }
 
-  /**
-   * Each row is a new line, there is a space between each letter
-   *
-   * @return a String with each character separated by spaces, and rows
-   * separated by newlines.
-   */
   public String toString() {
     String output = "";
     for (int row = 0; row < data.length; row++) {
@@ -61,29 +44,10 @@ public class WordSearch {
       }
       output += "\n";
     }
-    output += "Seed:" + seed;
+    output += "Seed: " + seed + "\n";
+    output += "Words Added: " + wordsAdded.toString() + "\n"; 
     return output;
   }
-
-  /**
-   * Attempts to add a given word to the specified position of the WordGrid.
-   * The word is added in the direction rowIncrement,colIncrement
-   * Words must have a corresponding letter to match any letters that it overlaps.
-   *
-   * @param word   is any text to be added to the word grid.
-   * @param row    is the vertical locaiton of where you want the word to start.
-   * @param col    is the horizontal location of where you want the word to start.
-   * @param rowInc is -1,0, or 1 and represents the displacement of each letter in
-   *               the row direction
-   * @param colInc is -1,0, or 1 and represents the displacement of each letter in
-   *               the col direction
-   * @return true when: the word is added successfully.
-   *         false (and do not change the board at all) when any of the following
-   *         happen:
-   *         a) rowInc and colInc are both 0,
-   *         b) the word doesn't fit,
-   *         c) there are overlapping letters that do not match
-   */
 
   public boolean addWord(String word, int row, int col, int rowInc, int colInc) {
     if (rowInc == 0 && colInc == 0) {
@@ -116,18 +80,17 @@ public class WordSearch {
             words.add(readWords.nextLine()); 
         } 
 
-        for(int i = 0; i < words.size(); i += (int)(randgen.nextInt(5))) { 
+        for(int i = (int)(randgen.nextInt(5)); i < words.size(); i += (int)(randgen.nextInt(5))) { 
             String current = words.get(i); 
             boolean placed = false; 
-            for(int j = 0; j < 5 && !placed; j++){
+            for(int j = 0; j < 20 && !placed; j++){
               int row = randgen.nextInt(data.length);
               int col = randgen.nextInt(data[row].length); 
-              int rowInc = randgen.nextInt(3) - 1; 
-              int colInc = randgen.nextInt(3) - 1; 
+              int rowInc = randgen.nextInt()%2; 
+              int colInc = randgen.nextInt()%2; 
               placed = addWord(current, row, col, rowInc, colInc); 
             }
         }
-
         readWords.close(); 
       }
 
@@ -148,6 +111,24 @@ public class WordSearch {
   }
 
   public static void main(String[] args) {
-  }
+      WordSearch wordSearch; 
+      int rows = Integer.parseInt(args[0]);
+      int cols = Integer.parseInt(args[1]); 
+      String fileName = args[2]; 
+      int mode = Integer.parseInt(args[3]);
+      
+      if (args.length == 5) {
+        int seed = Integer.parseInt(args[4]); 
+        wordSearch = new WordSearch(rows, cols, fileName, seed); 
+      }
+      else {
+        wordSearch = new WordSearch(rows, cols, fileName); 
+      }  
 
+      if (mode == 0) {
+        wordSearch.fillInRandomLetters();
+      } 
+
+      System.out.print(wordSearch); 
+    }
 }
