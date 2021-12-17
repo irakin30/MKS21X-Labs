@@ -50,21 +50,29 @@ public class WordSearch {
   }
 
   public boolean addWord(String word, int row, int col, int rowInc, int colInc) {
+    //exits if there is no direction
     if (rowInc == 0 && colInc == 0) {
       return false;
     }
-    try {
+
+    try { 
+      //first for loop checks if the word CAN be placed there. if it goes out of bounds, the catch returns false; 
       for (int i = 0; i < word.length(); i++) {
         if (!(data[row + (i * rowInc)][col + (i * colInc)] == '_'
             || data[row + (i * rowInc)][col + (i * colInc)] == word.charAt(i))) {
           return false;
         }
       }
+
+      //since all spaces are valid, add everything from the word.
       for (int i = 0; i < word.length(); i++) {
         data[row + (i * rowInc)][col + (i * colInc)] = word.charAt(i);
       }
+
+      //remember to add the word
       wordsAdded.add(word); 
       return true;
+
     } catch (ArrayIndexOutOfBoundsException e) {
       return false;
     }
@@ -73,21 +81,24 @@ public class WordSearch {
   private void addAllWords(String fileName) {
       File stuff = new File(fileName);
       try {
-        
+        //puts all the words into an ArrayList, and turns the words into UpperCase if not done so already
         Scanner readWords = new Scanner(stuff);
         ArrayList<String> words = new ArrayList<String>(); 
         while(readWords.hasNextLine()) {
             words.add(readWords.nextLine().toUpperCase()); 
         } 
 
+        //forces it to break out of the loop if it tries too much without success
         int tries = 0;
-        //decrease tries to decrease the amount of words
-        while(tries < 200) {
+        
+        //decrease tries to decrease the amount of words (hypothetically). I know, not a good implementation.
+        while(tries < 200 && words.size() > 0) {
+
             int index = randgen.nextInt(words.size()); 
             String current = words.get(index); 
-            words.remove(index);  
-            boolean placed = false;  
+            words.remove(index); 
 
+            boolean placed = false;  
             for(int j = 0; j < 20 && !placed; j++){
               int row = randgen.nextInt(data.length);
               int col = randgen.nextInt(data[row].length); 
@@ -121,6 +132,9 @@ public class WordSearch {
   }
 
   public static void main(String[] args) {
+    /* 
+      I didn't idiot proof this main function, so it just assumes you did this right. 
+    */
       WordSearch wordSearch; 
       int rows = Integer.parseInt(args[0]);
       int cols = Integer.parseInt(args[1]); 
