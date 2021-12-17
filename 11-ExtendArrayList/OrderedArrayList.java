@@ -9,8 +9,12 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
     } 
 
     private int whereToPlace(T value){
-        int index = size(); 
-        
+        for(int i = 1; i < size(); i++) {
+            if (value.compareTo(get(i)) < 0) {
+                return i; 
+            }
+        }
+        return size(); 
     } 
 
     public boolean add(T t) {
