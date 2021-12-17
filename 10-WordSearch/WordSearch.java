@@ -22,7 +22,7 @@ public class WordSearch {
   }
 
   public WordSearch(int rows, int cols, String fileName) {
-    this(rows, cols, fileName, (int)(Math.random() * 100000));
+    this(rows, cols, fileName, new Random().nextInt());
   }
 
   private void clear() {
@@ -77,18 +77,28 @@ public class WordSearch {
         Scanner readWords = new Scanner(stuff);
         ArrayList<String> words = new ArrayList<String>(); 
         while(readWords.hasNextLine()) {
-            words.add(readWords.nextLine()); 
+            words.add(readWords.nextLine().toUpperCase()); 
         } 
 
-        for(int i = (int)(randgen.nextInt(5)); i < words.size(); i += (int)(randgen.nextInt(5))) { 
-            String current = words.get(i); 
-            boolean placed = false; 
+        int tries = 0;
+        //decrease tries to decrease the amount of words
+        while(tries < 200) {
+            int index = randgen.nextInt(words.size()); 
+            String current = words.get(index); 
+            words.remove(index);  
+            boolean placed = false;  
+
             for(int j = 0; j < 20 && !placed; j++){
               int row = randgen.nextInt(data.length);
               int col = randgen.nextInt(data[row].length); 
               int rowInc = randgen.nextInt()%2; 
               int colInc = randgen.nextInt()%2; 
+              tries++; 
               placed = addWord(current, row, col, rowInc, colInc); 
+            } 
+
+            if (placed) {
+              tries = 0;
             }
         }
         readWords.close(); 
